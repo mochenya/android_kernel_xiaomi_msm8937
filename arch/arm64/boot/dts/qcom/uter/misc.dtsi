@@ -1,6 +1,8 @@
 /* msm-4.9 msm8953-mtp.dts and uter msm8953-mtp.dtsi */
 &pmi_haptic{
-	qcom,actuator-type = "erm";
+	qcom,actuator-type = <1>;
+	qcom,use-play-irq;
+	qcom,use-sc-irq;
 	qcom,lra-auto-res-mode="qwd";
 	qcom,lra-high-z="opt1";
 	qcom,lra-res-cal-period = <0x4>;
