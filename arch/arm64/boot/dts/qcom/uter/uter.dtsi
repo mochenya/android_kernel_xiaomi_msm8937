@@ -1,6 +1,7 @@
 #include "pinctrl.dtsi"
 
 #include "battery.dtsi"
+#include "display.dtsi"
 #include "misc.dtsi"
 #include "power.dtsi"
 #include "soc.dtsi"

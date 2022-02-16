@@ -1,0 +1,12 @@
+/* msm-pmi8950.dtsi */
+&lab_regulator {
+	/delete-property/ qcom,qpnp-lab-ps-enable;
+};
+&wled {
+	/delete-property/ qcom,en-ext-pfet-sc-pro;
+};
+
+/* msm8953-mtp.dtsi */
+&mdss_dsi0 {
+	/delete-property/ qcom,platform-bklight-en-gpio;
+};
