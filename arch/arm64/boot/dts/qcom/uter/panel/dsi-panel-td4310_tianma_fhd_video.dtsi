@@ -30,7 +30,6 @@
         qcom,mdss-dsi-panel-framerate = <0x3c>;
         qcom,mdss-dsi-panel-height = <0x780>;
         qcom,mdss-dsi-panel-name = "tianma td4310 fhd video mode dsi panel";
-        qcom,mdss-dsi-panel-orientation = "180";
         qcom,mdss-dsi-panel-status-check-mode = "bta_check";
         qcom,mdss-dsi-panel-timings = <0xe6382600 0x686e2a3c 0x44030400>;
         qcom,mdss-dsi-panel-timings-phy-v2 = <0x231e0809 0x50304a0 0x231e0809 0x50304a0 0x231e0809 0x50304a0 0x231e0809 0x50304a0 0x231a0809 0x50304a0>;
