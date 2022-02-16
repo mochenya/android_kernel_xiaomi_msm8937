@@ -1,0 +1,28 @@
+&soc {
+	fpc1020 {
+		compatible = "fpc,fpc1020";
+		fpc,gpio_irq = <&tlmm 0x30 0x0>;
+		fpc,gpio_rst = <&tlmm 0x8c 0x0>;
+		interrupt-parent = <&tlmm>;
+		interrupts = <0x30 0x0>;
+		pinctrl-0 = <&msm_gpio_140>;
+		pinctrl-1 = <&msm_gpio_140_output_high>;
+		pinctrl-2 = <&msm_gpio_48>;
+		pinctrl-names = "fpc1020_reset_reset", "fpc1020_reset_active", "fpc1020_irq_active";
+		status = "ok";
+		vcc_spi-supply = <&pm8953_l6>;
+		vdd_ana-supply = <&pm8953_l6>;
+		vdd_io-supply = <&pm8953_l6>;
+	};
+
+	goodix_fp {
+		compatible = "goodix,fingerprint";
+		goodix,gpio_irq = <&tlmm 0x30 0x0>;
+		goodix,gpio_reset = <&tlmm 0x8c 0x0>;
+		interrupt = <0x30 0x0>;
+		interrupt-parent = <&tlmm>;
+		vcc_spi-supply = <&pm8953_l10>;
+		vdd_ana-supply = <&pm8953_l10>;
+		vdd_io-supply = <&pm8953_l10>;
+	};
+};
