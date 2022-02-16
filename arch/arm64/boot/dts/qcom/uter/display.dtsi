@@ -1,12 +1,32 @@
 /* Display panels */
-#include "panel/dsi-panel-gx-rm67198-amoled-1080p-video.dtsi"
-#include "panel/dsi-panel-hehui-rm67191-amoled-1080p-video.dtsi"
-#include "panel/dsi-panel-sharp-ft8716-1080p-video.dtsi"
-#include "panel/dsi-panel-shenchao-ft8716-1080p-video.dtsi"
-#include "panel/dsi-panel-tianma-td4310-1080p-video.dtsi"
+#include "panel/dsi-panel-gx_rm67198_amoled_1080p_video.dtsi"
+#include "panel/dsi-panel-hh_rm67191_amoled_1080p_video.dtsi"
+#include "panel/dsi-panel-sharp_ft8716_fhd_video.dtsi"
+#include "panel/dsi-panel-shenchao_ft8716_fhd_video.dtsi"
+#include "panel/dsi-panel-td4310_tianma_fhd_video.dtsi"
 
 &mdss_dsi0 {
 	qcom,dsi-pref-prim-pan = <&dsi_td4310_tianma_fhd_video>;
+};
+
+&dsi_gx_rm67198_amoled_1080p_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_hh_rm67191_amoled_1080p_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_sharp_ft8716_fhd_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_shenchao_ft8716_fhd_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+};
+
+&dsi_td4310_tianma_fhd_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
 };
 
 /* msm-pmi8950.dtsi */
