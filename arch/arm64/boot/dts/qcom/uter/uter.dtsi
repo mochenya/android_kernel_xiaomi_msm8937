@@ -8,3 +8,4 @@
 #include "touchscreen.dtsi"
 
 #include "android.dtsi"
+#include "ramoops.dtsi"
