@@ -1,6 +1,7 @@
 #include "pinctrl.dtsi"
 
 #include "battery.dtsi"
+#include "camera.dtsi"
 #include "display.dtsi"
 #include "fingerprint.dtsi"
 #include "ir.dtsi"
