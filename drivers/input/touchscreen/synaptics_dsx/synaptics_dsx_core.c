@@ -45,8 +45,6 @@
 #include <linux/input/mt.h>
 #endif
 
-#include <linux/msm_drm_notify.h>
-
 #define INPUT_PHYS_NAME "synaptics_dsx/touch_input"
 #define STYLUS_PHYS_NAME "synaptics_dsx/stylus"
 
@@ -126,7 +124,8 @@ static int synaptics_rmi4_reinit_device(struct synaptics_rmi4_data *rmi4_data);
 static int synaptics_rmi4_reset_device(struct synaptics_rmi4_data *rmi4_data,
 		bool rebuild);
 #ifdef CONFIG_FB
-static int synaptics_rmi4_dsi_panel_notifier_cb(struct notifier_block *self,
+static void synaptics_rmi4_fb_notify_resume_work(struct work_struct *work);
+static int synaptics_rmi4_fb_notifier_cb(struct notifier_block *self,
 		unsigned long event, void *data);
 #endif
 
@@ -4335,11 +4334,11 @@ static int synaptics_rmi4_probe(struct platform_device *pdev)
 	}
 
 #ifdef CONFIG_FB
-	rmi4_data->fb_notifier.notifier_call = synaptics_rmi4_dsi_panel_notifier_cb;
-	retval = msm_drm_register_client(&rmi4_data->fb_notifier);
+	INIT_WORK(&rmi4_data->fb_notify_work,
+		  synaptics_rmi4_fb_notify_resume_work);
+	rmi4_data->fb_notifier.notifier_call = synaptics_rmi4_fb_notifier_cb;
+	retval = fb_register_client(&rmi4_data->fb_notifier);
 	if (retval < 0) {
-
-
 		dev_err(&pdev->dev,
 				"%s: Failed to register fb notifier client\n",
 				__func__);
@@ -4444,7 +4443,7 @@ err_virtual_buttons:
 
 err_enable_irq:
 #ifdef CONFIG_FB
-	msm_drm_unregister_client(&rmi4_data->fb_notifier);
+	fb_unregister_client(&rmi4_data->fb_notifier);
 #endif
 
 #ifdef USE_EARLYSUSPEND
@@ -4531,7 +4530,7 @@ static int synaptics_rmi4_remove(struct platform_device *pdev)
 	synaptics_rmi4_irq_enable(rmi4_data, false, false);
 
 #ifdef CONFIG_FB
-	msm_drm_unregister_client(&rmi4_data->fb_notifier);
+	fb_unregister_client(&rmi4_data->fb_notifier);
 #endif
 
 #ifdef USE_EARLYSUSPEND
@@ -4574,29 +4573,36 @@ static int synaptics_rmi4_remove(struct platform_device *pdev)
 }
 
 #ifdef CONFIG_FB
-static int synaptics_rmi4_dsi_panel_notifier_cb(struct notifier_block *self,
+static void synaptics_rmi4_fb_notify_resume_work(struct work_struct *work)
+{
+	struct synaptics_rmi4_data *rmi4_data =
+		container_of(work, struct synaptics_rmi4_data, fb_notify_work);
+	synaptics_rmi4_resume(&(rmi4_data->input_dev->dev));
+	rmi4_data->fb_ready = true;
+}
+
+static int synaptics_rmi4_fb_notifier_cb(struct notifier_block *self,
 		unsigned long event, void *data)
 {
-	int transition;
-	struct msm_drm_notifier *evdata = data;
+	int *transition;
+	struct fb_event *evdata = data;
 	struct synaptics_rmi4_data *rmi4_data =
 			container_of(self, struct synaptics_rmi4_data,
 			fb_notifier);
 
-	if (!evdata || (evdata->id != 0))
-		return 0;
-
 	if (evdata && evdata->data && rmi4_data) {
-		if (event == MSM_DRM_EVENT_BLANK) {
-			transition = *(int *)evdata->data;
-			if (transition == MSM_DRM_BLANK_POWERDOWN) {
-				synaptics_rmi4_suspend(&rmi4_data->pdev->dev);
-				rmi4_data->fb_ready = false;
-			} else if (transition == MSM_DRM_BLANK_UNBLANK) {
-				synaptics_rmi4_resume(&rmi4_data->pdev->dev);
-				rmi4_data->fb_ready = true;
+			if (event == FB_EVENT_BLANK) {
+				transition = evdata->data;
+				if (*transition == FB_BLANK_POWERDOWN) {
+					synaptics_rmi4_suspend(
+						&rmi4_data->pdev->dev);
+					rmi4_data->fb_ready = false;
+				} else if (*transition == FB_BLANK_UNBLANK) {
+					synaptics_rmi4_resume(
+						&rmi4_data->pdev->dev);
+					rmi4_data->fb_ready = true;
+				}
 			}
-		}
 	}
 
 	return 0;
