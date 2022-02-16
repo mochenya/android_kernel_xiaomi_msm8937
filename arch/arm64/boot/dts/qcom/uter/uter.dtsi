@@ -1,3 +1,5 @@
+#include "pinctrl.dtsi"
+
 #include "battery.dtsi"
 #include "misc.dtsi"
 #include "power.dtsi"
