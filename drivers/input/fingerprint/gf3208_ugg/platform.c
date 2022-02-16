@@ -25,7 +25,7 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 {
 	int rc = 0;
 
-#if 1
+#ifndef CONFIG_MACH_XIAOMI_UTER
 	gf_dev->pwr_gpio = of_get_named_gpio(gf_dev->spi->dev.of_node, "goodix,gpio_ldo", 0);
 	if (!gpio_is_valid(gf_dev->pwr_gpio)) {
 		pr_info("gpio ldo is invalid\n");
