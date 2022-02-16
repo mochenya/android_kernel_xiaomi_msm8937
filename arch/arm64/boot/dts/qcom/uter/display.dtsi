@@ -1,3 +1,10 @@
+/* Display panels */
+#include "panel/dsi-panel-gx-rm67198-amoled-1080p-video.dtsi"
+#include "panel/dsi-panel-hehui-rm67191-amoled-1080p-video.dtsi"
+#include "panel/dsi-panel-sharp-ft8716-1080p-video.dtsi"
+#include "panel/dsi-panel-shenchao-ft8716-1080p-video.dtsi"
+#include "panel/dsi-panel-tianma-td4310-1080p-video.dtsi"
+
 /* msm-pmi8950.dtsi */
 &lab_regulator {
 	/delete-property/ qcom,qpnp-lab-ps-enable;
