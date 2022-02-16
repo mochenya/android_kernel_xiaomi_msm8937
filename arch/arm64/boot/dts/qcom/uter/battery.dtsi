@@ -1,3 +1,5 @@
+/* msm-4.9 msm8953-mtp.dts */
+
 /{
 	mtp_batterydata: qcom,battery-data {
 		qcom,batt-id-range-pct = <15>;
@@ -15,4 +17,42 @@
 	qcom,chg-led-sw-controls;
 	qcom,chg-led-support;
 	qcom,usbin-vadc = <&pmi8950_vadc>;
+};
+
+/* msm-pmi8950.dtsi */
+&qpnp_smbcharger {
+	qcom,thermal-mitigation = <0x7d0 0x3e8 0x320 0x258 0x0>;
+	/delete-property/ qcom,parallel-usb-min-current-ma;
+	/delete-property/ qcom,parallel-usb-9v-min-current-ma;
+	/delete-property/ qcom,parallel-allowed-lowering-ma;
+};
+
+&qpnp_fg {
+	qcom,resume-soc = <0x63>;
+	qcom,fg-iterm-ma = <0xc8>;
+	qcom,fg-chg-iterm-ma = <0x96>;
+	qcom,fg-cutoff-voltage-mv = <0xd48>;
+};
+
+/* msm8953-mtp.dtsi */
+&qpnp_fg {
+	qcom,cold-bat-decidegc = <0x0>;
+	qcom,cold-hot-jeita-hysteresis = <0x0 0xa>;
+	qcom,cool-bat-decidegc = <0x96>;
+	qcom,fg-delta-soc = <0x1>;
+	qcom,hot-bat-decidegc = <0x21c>;
+	qcom,resume-soc-raw = <0xfe>;
+	qcom,use-otp-profile;
+	qcom,vbat-estimate-diff-mv = <0x64>;
+	qcom,warm-bat-decidegc = <0x1c2>;
+};
+
+&qpnp_smbcharger {
+	/delete-property/ qcom,external-typec;
+	/delete-property/ qcom,typec-psy-name;
+	ntc_vdd-supply = <&pm8953_l16>;
+	qcom,charge-unknown-battery;
+	qcom,fastchg-current-ma = <0x7d0>;
+	qcom,float-voltage-mv = <0x1130>;
+	qcom,iterm-ma = <0x96>;
 };
