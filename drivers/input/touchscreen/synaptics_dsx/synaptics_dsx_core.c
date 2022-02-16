@@ -3662,6 +3662,10 @@ static int synaptics_rmi4_get_reg(struct synaptics_rmi4_data *rmi4_data,
 	const struct synaptics_dsx_board_data *bdata =
 			rmi4_data->hw_if->board_data;
 
+#ifdef CONFIG_MACH_XIAOMI_UTER
+	return 0;
+#endif
+
 	if (!get) {
 		retval = 0;
 		goto regulator_put;
@@ -3751,6 +3755,10 @@ static int synaptics_rmi4_enable_reg(struct synaptics_rmi4_data *rmi4_data,
 	int retval;
 	const struct synaptics_dsx_board_data *bdata =
 			rmi4_data->hw_if->board_data;
+
+#ifdef CONFIG_MACH_XIAOMI_UTER
+	return 0;
+#endif
 
 	if (!enable) {
 		retval = 0;
