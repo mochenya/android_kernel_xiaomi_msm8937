@@ -1,0 +1,26 @@
+/* msm-pm8953.dtsi */
+&spmi_bus {
+	qcom,pm8953@0 {
+		qcom,power-on@800 {
+			qcom,pon_1 {
+				qcom,s1-timer = <0x1180>;
+				qcom,s2-timer = <0x7d0>;
+				qcom,s2-type = <0x8>;
+				qcom,support-reset = <0x1>;
+			};
+		};
+	};
+};
+
+/* msm8953-regulator.dtsi */
+&pm8953_l22 {
+	regulator-min-microvolt = <0x325aa0>;
+	regulator-max-microvolt = <0x325aa0>;
+	qcom,init-voltage = <0x325aa0>;
+};
+
+/* msm8953.dtsi */
+&pm8953_vadc {
+	chan@11 { label = "case_therm"; };
+	/delete-node/ chan@13;
+};
