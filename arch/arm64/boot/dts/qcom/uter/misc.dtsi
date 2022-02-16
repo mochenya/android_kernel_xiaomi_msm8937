@@ -54,3 +54,27 @@
 				0x9F 0x1C
 				0x00 0x18>;
 };
+
+/* msm-pmi8950.dtsi */
+&spmi_bus {
+	qcom,pmi8950@2 {
+		/delete-node/ qcom,leds@a100;
+		qcom,leds@a200 {
+			compatible = "qcom,leds-qpnp";
+			reg = <0xa200 0x100>;
+			qcom,led_mpp_3 {
+				label = "mpp";
+				linux,default-trigger = "none";
+				linux,name = "button-backlight";
+				qcom,current-setting = <0x5>;
+				qcom,default-state = "on";
+				qcom,id = <0x6>;
+				qcom,max-current = <0x28>;
+				qcom,mode = "manual";
+				qcom,mode-ctrl = <0x10>;
+				qcom,source-sel = <0x0>;
+				qcom,vin-ctrl = <0x0>;
+			};
+		};
+	};
+};
