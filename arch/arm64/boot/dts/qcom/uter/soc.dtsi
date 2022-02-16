@@ -11,3 +11,10 @@
 &qcom_seecom {
 	reg = <0x83300000 0x3000000>;
 };
+
+/* Custom changes */
+&soc {
+	restart@4ab000 {
+		qcom,force-warm-reboot;
+	};
+};
