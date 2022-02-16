@@ -67,7 +67,7 @@
 				linux,default-trigger = "none";
 				linux,name = "button-backlight";
 				qcom,current-setting = <0x5>;
-				qcom,default-state = "on";
+				qcom,default-state = "off";
 				qcom,id = <0x6>;
 				qcom,max-current = <0x28>;
 				qcom,mode = "manual";
