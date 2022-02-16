@@ -1,3 +1,7 @@
+ifeq ($(CONFIG_MACH_XIAOMI_UTER),y)
+dtb-$(CONFIG_MACH_XIAOMI_UTER) += uter/msm8953-mtp-uter.dtb
+else
+
 dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc.dtb msm8916-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= msm8996-mtp.dtb
 dtb-$(CONFIG_ARCH_QCOM)	+= apq8096-db820c.dtb
@@ -677,6 +681,8 @@ dtb-$(CONFIG_ARCH_SDM429) += sdm429-mtp.dtb \
 endif
 
 dtb-$(CONFIG_ARCH_SDM845_VM) += sdm845-vm.dtb
+
+endif
 
 always		:= $(dtb-y)
 subdir-y	:= $(dts-dirs)
