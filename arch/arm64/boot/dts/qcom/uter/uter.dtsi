@@ -3,6 +3,7 @@
 #include "battery.dtsi"
 #include "display.dtsi"
 #include "fingerprint.dtsi"
+#include "ir.dtsi"
 #include "misc.dtsi"
 #include "power.dtsi"
 #include "soc.dtsi"

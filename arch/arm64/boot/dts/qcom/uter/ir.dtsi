@@ -1,0 +1,32 @@
+&pmi8950_pwm {
+    status = "okay";
+    qcom,dtest-line = <0x1>;
+    qcom,dtest-output = <0x1>;
+    qcom,mode-select = <0x0>;
+    qcom,period = <0x3d0900>;
+    qcom,pwm {
+        label = "pwm";
+        qcom,duty = <0x1e8480>;
+    };
+};
+
+&pmi8950_gpios {
+	gpio@c000 {
+		qcom,master-en = <0x1>;
+		qcom,mode = <0x1>;
+		qcom,out-strength = <0x3>;
+		qcom,pull = <0x5>;
+		qcom,src-sel = <0x6>;
+		status = "okay";
+	};
+};
+
+&soc {
+	pwm_ir {
+		compatible = "pwm-ir";
+		pwms = <&pmi8950_pwm 0x0 0x0>;
+		qcom,test-gpios = <&pmi8950_gpios 0x1 0x0>;
+		reg-id = "vdd";
+		vdd-supply = <&pm8953_l10>;
+	};
+};
