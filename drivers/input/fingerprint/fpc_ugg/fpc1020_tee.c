@@ -53,11 +53,11 @@
 #define NUM_PARAMS_REG_ENABLE_SET 2
 #define PROC_NAME  "hwinfo"
 static struct proc_dir_entry *proc_entry;
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 extern int ulysse_fpsensor;
 #endif
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 static struct kernfs_node *soc_symlink = NULL;
 #endif
 
@@ -470,7 +470,7 @@ static int fpc1020_probe(struct platform_device *pdev)
 	struct fpc1020_data *fpc1020 = devm_kzalloc(dev, sizeof(*fpc1020),
 			GFP_KERNEL);
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	struct device *platform_dev;
 	struct kobject *soc_kobj;
 	struct kernfs_node *devices_node, *soc_node;
@@ -483,7 +483,7 @@ static int fpc1020_probe(struct platform_device *pdev)
 		goto exit;
 	}
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	if(ulysse_fpsensor != 1) {
 				pr_err("Macle fpc1020_probe failed as ulysse_fpsensor=%d(1=fp)\n", ulysse_fpsensor);
 				return -1;
@@ -588,7 +588,7 @@ static int fpc1020_probe(struct platform_device *pdev)
 			}
 
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	if(!dev->parent || !dev->parent->parent) {
 		dev_warn(dev, "Parent platform device not found");
 		goto exit;
@@ -622,7 +622,7 @@ static int fpc1020_remove(struct platform_device *pdev)
 {
 	struct fpc1020_data *fpc1020 = platform_get_drvdata(pdev);
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	if(!IS_ERR(soc_symlink)) {
 		kernfs_remove_by_name(soc_symlink->parent, soc_symlink->name);
 	}

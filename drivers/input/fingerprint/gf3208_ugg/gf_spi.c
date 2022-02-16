@@ -74,7 +74,7 @@ static DEFINE_MUTEX(device_list_lock);
 static struct wakeup_source fp_wakelock;
 static struct gf_dev gf;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 extern int ulysse_fpsensor;
 #endif
 static struct proc_dir_entry *proc_entry;
@@ -852,7 +852,7 @@ static int __init gf_init(void)
 {
 	int status;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	   if(ulysse_fpsensor != 2) {
 				pr_err("Macle gf_init failed as ulysse_fpsensor=%d(2=gx)\n", ulysse_fpsensor);
 				return -1;
