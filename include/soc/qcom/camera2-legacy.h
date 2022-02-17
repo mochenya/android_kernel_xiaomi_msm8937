@@ -21,7 +21,7 @@
 #include <linux/of_device.h>
 #include <linux/of.h>
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 enum __camera_vendor_module_id{
 	MID_NULL = 0,
 	MID_SUNNY,

@@ -1592,7 +1592,7 @@ enum msm_camera_vreg_name_t {
 	CAM_VANA,
 	CAM_VAF,
 	CAM_VREG_MAX,
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	CAM_DRV,
 #endif
 };

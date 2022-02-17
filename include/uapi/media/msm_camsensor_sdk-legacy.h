@@ -107,7 +107,7 @@ enum msm_sensor_power_seq_gpio_t {
 	SENSOR_GPIO_VIO,
 	SENSOR_GPIO_VANA,
 	SENSOR_GPIO_VDIG,
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	SENSOR_GPIO_DRV,
 #endif
 	SENSOR_GPIO_VAF,
@@ -136,7 +136,7 @@ enum msm_camera_vreg_name_t {
 	CAM_V_CUSTOM1,
 	CAM_V_CUSTOM2,
 	CAM_VREG_MAX,
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	CAM_DRV,
 #endif
 };
