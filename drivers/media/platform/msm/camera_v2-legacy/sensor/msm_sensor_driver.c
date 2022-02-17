@@ -754,153 +754,6 @@ static uint16_t msm_sensor_get_sensor_id_samsung(struct msm_sensor_ctrl_t *s_ctr
 	return rc;
 }
 
-static uint16_t msm_sensor_get_sensor_id_samsung_5e8(struct msm_sensor_ctrl_t *s_ctrl,char *sensor_fusion_id)
-{
-	int rc = 0;
-	int i = 0;
-	uint16_t sensorid[16] ={0};
-	uint32_t start_add =0x0a04;
-	struct msm_camera_i2c_client *sensor_i2c_client;
-
-	CDBG("%s:%d E \n", __func__, __LINE__);
-	sensor_i2c_client = s_ctrl->sensor_i2c_client;
-
-	rc = sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0100,
-		0x00, MSM_CAMERA_I2C_BYTE_DATA);
-	mdelay(1);
-	if (rc < 0) {
-		pr_err("%s:litao write 0x0100 failed\n", __func__);
-		return rc;
-	}
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0a00,
-		0x04, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0a02,
-		0x00, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0a00,
-		0x01, MSM_CAMERA_I2C_BYTE_DATA);
-
-	mdelay(1);
-
-	for (i=0; i<16; i++) {
-	 sensor_i2c_client->i2c_func_tbl->i2c_read(
-		sensor_i2c_client,start_add,
-		&sensorid[i], MSM_CAMERA_I2C_WORD_DATA);
-
-	start_add += 1;
-	}
-
-	sprintf(sensor_fusion_id, "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
-		sensorid[0],
-		sensorid[1],
-		sensorid[2],
-		sensorid[3],
-		sensorid[4],
-		sensorid[5],
-		sensorid[6],
-		sensorid[7],
-		sensorid[8],
-		sensorid[9],
-		sensorid[10],
-		sensorid[12],
-		sensorid[13],
-		sensorid[14],
-		sensorid[15]);
-	return rc;
-}
-
-static uint16_t msm_sensor_get_sensor_id_ovti_13855(struct msm_sensor_ctrl_t *s_ctrl,char *sensor_fusion_id)
-{
-	int rc = 0;
-	int i = 0;
-	uint16_t sensorid[16] ={0};
-	uint16_t temp = 0;
-	uint32_t start_add =0x7000;
-	struct msm_camera_i2c_client *sensor_i2c_client;
-
-	CDBG("%s:%d E \n", __func__, __LINE__);
-
-	sensor_i2c_client = s_ctrl->sensor_i2c_client;
-
-	rc = sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0100,
-		0x01, MSM_CAMERA_I2C_BYTE_DATA);
-	if (rc < 0) {
-		pr_err("%s:litao write 0x0100 failed\n", __func__);
-		return rc;
-	}
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_read(
-		sensor_i2c_client,0x5000,
-		&temp, MSM_CAMERA_I2C_WORD_DATA);
-
-	temp &= ~(1<<3);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x5000,
-		temp, MSM_CAMERA_I2C_BYTE_DATA);
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d84,
-		0x40, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d88,
-		0x70, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d89,
-		0x00, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d8a,
-		0x70, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d8b,
-		0x0f, MSM_CAMERA_I2C_BYTE_DATA);
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x3d81,
-		0x01, MSM_CAMERA_I2C_BYTE_DATA);
-
-	mdelay(1);
-	for (i=0; i<16; i++) {
-	 sensor_i2c_client->i2c_func_tbl->i2c_read(
-		sensor_i2c_client,start_add,
-		&sensorid[i], MSM_CAMERA_I2C_WORD_DATA);
-
-	start_add += 1;
-	}
-
-	 sensor_i2c_client->i2c_func_tbl->i2c_write(
-		sensor_i2c_client, 0x0100,
-		0x00, MSM_CAMERA_I2C_BYTE_DATA);
-	sprintf(sensor_fusion_id, "%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d",
-		sensorid[0],
-		sensorid[1],
-		sensorid[2],
-		sensorid[3],
-		sensorid[4],
-		sensorid[5],
-		sensorid[6],
-		sensorid[7],
-		sensorid[8],
-		sensorid[9],
-		sensorid[10],
-		sensorid[11],
-		sensorid[12],
-		sensorid[13],
-		sensorid[14],
-		sensorid[15]);
-	return rc;
-}
-
 static uint16_t msm_sensor_get_sensor_id_ovti_16885(struct msm_sensor_ctrl_t *s_ctrl,char *sensor_fusion_id)
 {
 	int rc = 0;
@@ -1010,25 +863,21 @@ void msm_sensor_set_sesnor_id(struct msm_sensor_ctrl_t *s_ctrl)
 			break;
 	}
 
-		  if((!strcmp("s5k3p8sp_d16s01n_d6s", s_ctrl->sensordata->sensor_name))||(!strcmp("s5k3l8_ohp0502_d6", s_ctrl->sensordata->sensor_name))) {
+	if(!strcmp("s5k3p8sp_d16s01n_sunny_d7", s_ctrl->sensordata->sensor_name)) {
 		rc = msm_sensor_get_sensor_id_samsung(s_ctrl,sensor_fusion_id_tmp);
 		if (rc < 0) {
 		pr_err("%s:%d litao read sensor %s fusion id failed\n", __func__, __LINE__, s_ctrl->sensordata->sensor_name);
 			}
 		}
-	if((!strcmp("s5k5e8_oef0501_d6", s_ctrl->sensordata->sensor_name))||(!strcmp("s5k5e8_f5e8ybf_d6", s_ctrl->sensordata->sensor_name))) {
-		rc = msm_sensor_get_sensor_id_samsung_5e8(s_ctrl,sensor_fusion_id_tmp);
+		/*
+	if(!strcmp("ov12a10", s_ctrl->sensordata->sensor_name)) {
+		rc = msm_sensor_get_sensor_id_ov12a10(s_ctrl,sensor_fusion_id_tmp);
 		if (rc < 0) {
 		pr_err("%s:%d litao read sensor %s fusion id failed\n", __func__, __LINE__, s_ctrl->sensordata->sensor_name);
 			}
 		}
-	 if(!strcmp("ov13855_f13855bd_d6", s_ctrl->sensordata->sensor_name)) {
-		rc = msm_sensor_get_sensor_id_ovti_13855(s_ctrl,sensor_fusion_id_tmp);
-		if (rc < 0) {
-		pr_err("%s:%d litao read sensor %s fusion id failed\n", __func__, __LINE__, s_ctrl->sensordata->sensor_name);
-			}
-		}
-	if(!strcmp("ov16885_ojf0541_d6", s_ctrl->sensordata->sensor_name)) {
+		*/
+	if(!strcmp("ov16885", s_ctrl->sensordata->sensor_name)) {
 		rc = msm_sensor_get_sensor_id_ovti_16885(s_ctrl,sensor_fusion_id_tmp);
 		if (rc < 0) {
 		pr_err("%s:%d litao read sensor %s fusion id failed\n", __func__, __LINE__, s_ctrl->sensordata->sensor_name);
@@ -1195,57 +1044,7 @@ int32_t msm_sensor_driver_probe(void *setting,
 	}
 
 #ifdef CONFIG_MACH_XIAOMI_UTER
-	printk("lct enter CONFIG_KERNEL_CUSTOM_CM895!\n");
-	if(s_vendor_eeprom[i].eeprom_name != NULL) {
-		for(i=0; i<CAMERA_VENDOR_EEPROM_COUNT_MAX; i++) {
-			if(strcmp(slave_info->eeprom_name,s_vendor_eeprom[i].eeprom_name) == 0) {
-
-				printk("lct slave_info->sensor_name =%s, module_id=%d\n", slave_info->sensor_name, s_vendor_eeprom[i].module_id);
-				if(((strcmp(slave_info->sensor_name,"s5k3p8_ulysse_sunny") == 0) && (s_vendor_eeprom[i].module_id == MID_SUNNY))
-					|| ((strcmp(slave_info->sensor_name,"s5k3p8_ulysse_ofilm") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))
-					|| ((strcmp(slave_info->sensor_name,"s5k2p7_ulysse_semco") == 0) && (s_vendor_eeprom[i].module_id == MID_D3))) {
-						printk("lct module found!probe continue!\n");
-						break;
-				}
-			}
-		}
-/*
-		if(i >= CAMERA_VENDOR_EEPROM_COUNT_MAX) {
-			pr_err("lct module not found!probe break failed!\n");
-			rc = -EFAULT;
-			goto free_slave_info;
-		}
-*/
-	}
-
-	printk("hjl reading to enter L6200\n");
-	printk("lct entered CONFIG_KERNEL_CUSTOM_L6200!\n");
-	printk("slave_info->eeprom_name=%s, s_vendor_eeprom=%s\n",
-			slave_info->eeprom_name, s_vendor_eeprom[i].eeprom_name);
-	if(s_vendor_eeprom[i].eeprom_name != NULL) {
-		for(i=0; i<CAMERA_VENDOR_EEPROM_COUNT_MAX; i++) {
-			if(strcmp(slave_info->eeprom_name, s_vendor_eeprom[i].eeprom_name) == 0) {
-
-			printk("lct slave_info->sensor_name =%s, module_id=%d\n", slave_info->sensor_name, s_vendor_eeprom[i].module_id);
-				if(((strcmp(slave_info->sensor_name,"s5k5e8_oef0501_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))
-					|| ((strcmp(slave_info->sensor_name,"s5k5e8_f5e8ybf_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_QTECH))
-					|| ((strcmp(slave_info->sensor_name,"s5k3l8_ohp0502_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))
-					|| ((strcmp(slave_info->sensor_name,"ov13855_f13855bd_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_QTECH))) {
-						printk("lct module found!probe continue!\n");
-						break;
-				}
-			}
-		}
-/*
-		if(i >= CAMERA_VENDOR_EEPROM_COUNT_MAX) {
-		pr_err("lct module not found!probe break failed!\n");
-		rc = -EFAULT;
-		goto free_slave_info;
-		}
-*/
-	}
-
-	printk("lct enter CONFIG_KERNEL_CUSTOM_L6210!\n");
+	printk("UTER camera probe.\n");
 	if(s_vendor_eeprom[i].eeprom_name != NULL) {
 		for(i=0; i<CAMERA_VENDOR_EEPROM_COUNT_MAX; i++) {
 			printk("slave_info->eeprom_name=%s, s_vendor_eeprom=%s\n",
@@ -1254,24 +1053,15 @@ int32_t msm_sensor_driver_probe(void *setting,
 			if(strcmp(slave_info->eeprom_name, s_vendor_eeprom[i].eeprom_name) == 0) {
 
 				printk("lct slave_info->sensor_name =%s, module_id=%d\n", slave_info->sensor_name, s_vendor_eeprom[i].module_id);
-				if(((strcmp(slave_info->sensor_name,"s5k3p8sp_d16s01n_d6s") == 0) && (s_vendor_eeprom[i].module_id == MID_SUNNY))
-					|| ((strcmp(slave_info->sensor_name,"ov16885_ojf0541_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))
-					|| ((strcmp(slave_info->sensor_name,"s5k3l8_ohp0502_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))
-					|| ((strcmp(slave_info->sensor_name,"ov13855_f13855bd_d6") == 0) && (s_vendor_eeprom[i].module_id == MID_QTECH))) {
+				if(((strcmp(slave_info->sensor_name,"ov12a10") == 0) && (s_vendor_eeprom[i].module_id == MID_SUNNY))
+					|| ((strcmp(slave_info->sensor_name,"s5k3p8sp_d16s01n_sunny_d7") == 0) && (s_vendor_eeprom[i].module_id == MID_SUNNY))
+					|| ((strcmp(slave_info->sensor_name,"ov16885") == 0) && (s_vendor_eeprom[i].module_id == MID_OFILM))) {
 						printk("lct module found!probe continue!\n");
 						break;
 				}
 			}
 		}
-/*
-		if(i >= CAMERA_VENDOR_EEPROM_COUNT_MAX) {
-			pr_err("lct module not found!probe break failed!\n");
-			rc = -EFAULT;
-			goto free_slave_info;
-		}
-*/
 	}
-
 #endif
 
 	/* Print slave info */

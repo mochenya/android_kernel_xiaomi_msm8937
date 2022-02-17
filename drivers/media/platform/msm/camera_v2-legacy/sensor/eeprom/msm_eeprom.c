@@ -1878,6 +1878,18 @@ static uint8_t get_otp_vendor_module_id(struct msm_eeprom_ctrl_t *e_ctrl, const 
 		module_id = ov13855_f13855bd_qtech_get_otp_vendor_module_id(e_ctrl);
 	}
 
+	printk("hjl enter D7 front camera\n");
+	if(strcmp(eeprom_name,"s5k3p8sp_d16s01n_sunny_d7") == 0) {
+		module_id = s5k3p8sp_d16s01n_sunny_d6s_get_otp_vendro_module_id(e_ctrl);
+	} else if(strcmp(eeprom_name,"ov16885_ojf0541_ofilm_d7") == 0) {
+		module_id = ov16885_ojf0541_ofilm_d6s_get_otp_vendor_module_id(e_ctrl);
+	}
+	/* FIXME */
+	printk("hjl enter D7 back camera\n");
+	if(strcmp(eeprom_name,"ov12a10") == 0) {
+		module_id = MID_SUNNY;
+	}
+
 	printk("hjl %s %d eeprom_name=%s, module_id=0x%x\n",__func__,__LINE__,eeprom_name, module_id);
 	if(module_id>=MID_MAX) module_id = MID_NULL;
 
