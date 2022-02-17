@@ -989,7 +989,7 @@ static int32_t msm_flash_get_dt_data(struct device_node *of_node,
 	struct msm_flash_ctrl_t *fctrl)
 {
 	int32_t rc = 0;
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	int32_t flash_driver_type = -1;
 #endif
 
@@ -1011,7 +1011,7 @@ static int32_t msm_flash_get_dt_data(struct device_node *of_node,
 
 	fctrl->flash_driver_type = FLASH_DRIVER_DEFAULT;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	/* Read the flash_driver_type */
 	rc = of_property_read_u32(of_node, "qcom,flash-type", &flash_driver_type);
 	if (rc < 0) {

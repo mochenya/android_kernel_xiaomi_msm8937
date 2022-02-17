@@ -19,7 +19,7 @@
 #include "msm_ois.h"
 #include "msm_cci.h"
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 extern uint16_t otp_ois[19];
 #endif
 
@@ -32,7 +32,7 @@ DEFINE_MSM_MUTEX(msm_ois_mutex);
 #define CDBG(fmt, args...) pr_debug(fmt, ##args)
 #endif
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 typedef	uint16_t OIS_UWORD;
 struct OIS_otp{
 	OIS_UWORD	gl_CURDAT;
@@ -62,11 +62,11 @@ static int32_t msm_ois_power_up(struct msm_ois_ctrl_t *o_ctrl);
 static int32_t msm_ois_power_down(struct msm_ois_ctrl_t *o_ctrl);
 
 static struct i2c_driver msm_ois_i2c_driver;
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 static struct OIS_otp * msm_ois_otp;
 #endif
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 int32_t i = 0;
 unsigned char data_rd[2]={0};
 unsigned short int  read_data = 0;
@@ -93,7 +93,7 @@ uint16_t ois_addr[] ={
 		};
 #endif
 
-#ifndef CONFIG_MACH_XIAOMI_ULYSSE
+#ifndef CONFIG_MACH_XIAOMI_UTER
 static int32_t msm_ois_download(struct msm_ois_ctrl_t *o_ctrl)
 {
 	uint16_t bytes_in_tx = 0;
@@ -458,7 +458,7 @@ static int32_t msm_ois_control(struct msm_ois_ctrl_t *o_ctrl,
 			set_info->ois_params.setting_size,
 			settings);
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 		msm_ois_otp =(struct OIS_otp *)otp_ois;
 
 
@@ -530,7 +530,7 @@ static int32_t msm_ois_config(struct msm_ois_ctrl_t *o_ctrl,
 			break;
 		}
 
-#ifndef CONFIG_MACH_XIAOMI_ULYSSE
+#ifndef CONFIG_MACH_XIAOMI_UTER
 		if (!conf_array.size ||
 			conf_array.size > I2C_SEQ_REG_DATA_MAX) {
 #else
@@ -985,7 +985,7 @@ static int32_t msm_ois_platform_probe(struct platform_device *pdev)
 		if (rc < 0) {
 			pr_err("ERR: Error in reading OIS pinctrl\n");
 			msm_ois_t->cam_pinctrl_status = 0;
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 			rc = 0;
 #endif
 		}

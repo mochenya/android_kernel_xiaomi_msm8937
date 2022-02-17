@@ -22,7 +22,7 @@
 #undef CDBG
 #define CDBG(fmt, args...) pr_debug(fmt, ##args)
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 #define BUFFER_NUM              359
 uint16_t otp_ois[19]={0};
 #endif
@@ -32,7 +32,7 @@ DEFINE_MSM_MUTEX(msm_eeprom_mutex);
 static struct v4l2_file_operations msm_eeprom_v4l2_subdev_fops;
 #endif
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 struct vendor_eeprom s_vendor_eeprom[CAMERA_VENDOR_EEPROM_COUNT_MAX];
 #endif
 
@@ -667,7 +667,7 @@ static int msm_eeprom_config(struct msm_eeprom_ctrl_t *e_ctrl,
 		if (e_ctrl->userspace_probe == 0) {
 			pr_err("%s:%d Eeprom already probed at kernel boot",
 				__func__, __LINE__);
-#ifndef CONFIG_MACH_XIAOMI_ULYSSE
+#ifndef CONFIG_MACH_XIAOMI_UTER
 			rc = -EINVAL;
 #else
 			rc = 0;
@@ -1530,7 +1530,7 @@ static int msm_eeprom_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 		if (e_ctrl->userspace_probe == 0) {
 			pr_err("%s:%d Eeprom already probed at kernel boot",
 				__func__, __LINE__);
-#ifndef CONFIG_MACH_XIAOMI_ULYSSE
+#ifndef CONFIG_MACH_XIAOMI_UTER
 			rc = -EINVAL;
 #else
 			rc = 0;
@@ -1592,7 +1592,7 @@ static long msm_eeprom_subdev_fops_ioctl32(struct file *file, unsigned int cmd,
 
 #endif
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 static camera_vendor_module_id s5k2p7_ulysse_brcg064_get_otp_vendor_module_id
 	(struct msm_eeprom_ctrl_t *e_ctrl)
 {
@@ -1889,7 +1889,7 @@ static int msm_eeprom_platform_probe(struct platform_device *pdev)
 {
 	int rc = 0;
 	int j = 0;
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	int i = 0;
 #endif
 	uint32_t temp;
@@ -2037,7 +2037,7 @@ static int msm_eeprom_platform_probe(struct platform_device *pdev)
 			CDBG("memory_data[%d] = 0x%X\n", j,
 				e_ctrl->cal_data.mapdata[j]);
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 		if(eb_info->eeprom_name != NULL) {
 
 			s_vendor_eeprom[pdev->id].module_id = get_otp_vendor_module_id(e_ctrl, eb_info->eeprom_name);
@@ -2056,7 +2056,7 @@ static int msm_eeprom_platform_probe(struct platform_device *pdev)
 	} else
 		e_ctrl->is_supported = 1;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	if(strcmp(eb_info->eeprom_name, "s5k2p7_ulysse_brcg064") == 0) {
 		for (j = 2900,i=0; j < 2938; j=j+2,i++) {
 			if(i<19) {

@@ -32,7 +32,7 @@
 #define CYCLES_PER_MICRO_SEC_DEFAULT 4915
 #define CCI_MAX_DELAY 1000000
 
-#ifndef CONFIG_MACH_XIAOMI_ULYSSE
+#ifndef CONFIG_MACH_XIAOMI_UTER
 #define CCI_TIMEOUT msecs_to_jiffies(500)
 #else
 #define CCI_TIMEOUT msecs_to_jiffies(1000)

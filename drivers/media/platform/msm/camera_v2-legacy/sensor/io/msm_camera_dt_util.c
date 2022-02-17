@@ -114,7 +114,7 @@ int msm_camera_fill_vreg_params(struct camera_vreg_t *cam_vreg,
 				power_setting[i].seq_val = INVALID_VREG;
 			break;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 		case CAM_DRV:
 			for (j = 0; j < num_vreg; j++) {
 				if (!strcmp(cam_vreg[j].reg_name, "cam_drv")) {
@@ -991,7 +991,7 @@ int msm_camera_init_gpio_pin_tbl(struct device_node *of_node,
 		rc = 0;
 	}
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	rc = of_property_read_u32(of_node, "qcom,gpio-drv", &val);
 	if (rc != -EINVAL) {
 		if (rc < 0) {
@@ -1453,7 +1453,7 @@ int msm_cam_sensor_handle_reg_gpio(int seq_val,
 		gpio_offset = SENSOR_GPIO_VANA;
 		break;
 
-#ifdef CONFIG_MACH_XIAOMI_ULYSSE
+#ifdef CONFIG_MACH_XIAOMI_UTER
 	case CAM_DRV:
 		gpio_offset = SENSOR_GPIO_DRV;
 		break;
