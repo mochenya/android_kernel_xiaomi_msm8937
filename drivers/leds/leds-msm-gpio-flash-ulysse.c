@@ -193,6 +193,10 @@ static int led_gpio_flash_probe(struct platform_device *pdev)
 
 			goto error;
 		}
+		rc = gpio_direction_output(flash_led->flash_en, 0);
+		if (rc) {
+			dev_err(&pdev->dev, "%s: Failed to disable flashlight, rc = %d\n", __func__, rc);
+		}
 	}
 
 	flash_led->flash_now = of_get_named_gpio(node, "qcom,flash-now", 0);
