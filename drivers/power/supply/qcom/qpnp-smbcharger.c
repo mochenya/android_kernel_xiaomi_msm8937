@@ -4174,7 +4174,7 @@ static int smbchg_register_chg_led(struct smbchg_chip *chip)
 	int rc;
 
 #ifdef CONFIG_MACH_XIAOMI_UTER
-	chip->led_cdev.name = "smbchg_red";
+	chip->led_cdev.name = "white";
 #else
 	chip->led_cdev.name = "red";
 #endif
