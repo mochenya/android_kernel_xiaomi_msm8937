@@ -167,31 +167,6 @@
 			pins = "gpio35";
 		};
 	};
-
-	sec-tlmm-lines {
-		sec_tlmm_lines_act: sec_tlmm_lines_act {
-			config {
-				drive-strength = <0x8>;
-				pins = "gpio135", "gpio136", "gpio137", "gpio138";
-			};
-			mux {
-				function = "sec_mi2s";
-				pins = "gpio135", "gpio136", "gpio137", "gpio138";
-			};
-		};
-
-		sec_tlmm_lines_sus: sec_tlmm_lines_sus {
-			config {
-				bias-pull-down;
-				drive-strength = <0x2>;
-				pins = "gpio135", "gpio136", "gpio137", "gpio138";
-			};
-			mux {
-				function = "sec_mi2s";
-				pins = "gpio135", "gpio136", "gpio137", "gpio138";
-			};
-		};
-	};
 };
 
 /* msm8953-mtp.dts */
