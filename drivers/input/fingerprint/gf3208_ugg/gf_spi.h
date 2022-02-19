@@ -110,6 +110,19 @@ struct gf_ioc_chip_info {
 #define GF_NET_EVENT_FB_UNBLACK 3
 #define NETLINK_TEST 25
 
+struct vreg_config {
+	char *name;
+	unsigned long vmin;
+	unsigned long vmax;
+	int ua_load;
+};
+
+static const struct vreg_config vreg_conf[] = {
+	{ "vdd_ana", 1800000UL, 1800000UL, 6000, },
+	{ "vcc_spi", 1800000UL, 1800000UL, 10, },
+	{ "vdd_io", 1800000UL, 1800000UL, 6000, },
+};
+
 struct gf_dev {
 	dev_t devt;
 	struct list_head device_entry;
@@ -135,6 +148,8 @@ struct gf_dev {
 	struct notifier_block notifier;
 	char device_available;
 	char fb_black;
+
+	struct regulator *vreg[ARRAY_SIZE(vreg_conf)];
 };
 
 int gf_parse_dts(struct gf_dev* gf_dev);
