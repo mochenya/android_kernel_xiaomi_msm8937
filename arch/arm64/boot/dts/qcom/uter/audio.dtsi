@@ -24,6 +24,7 @@
 /* msm8953-audio.dtsi */
 &int_codec {
 	/delete-property/ qcom,cdc-us-euro-gpios;
+	/delete-property/ qcom,cdc-us-eu-gpios;
 	qcom,msm-mbhc-hphl-swh = <0x1>;
 	qcom,msm-mbhc-gnd-swh = <0x1>;
 	qcom,msm-micbias2-ext-cap;
