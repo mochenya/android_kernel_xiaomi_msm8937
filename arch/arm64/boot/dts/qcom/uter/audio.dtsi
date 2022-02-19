@@ -59,20 +59,6 @@
 	};
 };
 
-/* GPIOs */
-&soc {
-	sec_tlmm_lines_gpios: sec_tlmm_lines_pinctrl {
-		compatible = "qcom,msm-cdc-pinctrl";
-		pinctrl-names = "aud_active", "aud_sleep";
-		pinctrl-0 = <&sec_tlmm_lines_act>;
-		pinctrl-1 = <&sec_tlmm_lines_sus>;
-	};
-};
-
-&int_codec {
-	qcom,cdc-ext-pa-gpios = <&sec_tlmm_lines_gpios>;
-};
-
 /* Disable unused wsa881x i2c nodes */
 &wsa881x_i2c_f {
         status = "disabled";
