@@ -79,3 +79,17 @@
 &wsa881x_analog_reset_gpio {
         status = "disabled";
 };
+
+/* GPIOs */
+&soc {
+	sec_tlmm_lines_gpios: sec_tlmm_lines_pinctrl {
+		compatible = "qcom,msm-cdc-pinctrl";
+		pinctrl-names = "aud_active", "aud_sleep";
+		pinctrl-0 = <&sec_tlmm_lines_act>;
+		pinctrl-1 = <&sec_tlmm_lines_sus>;
+	};
+};
+
+&int_codec {
+	qcom,quat-mi2s-gpios = <&sec_tlmm_lines_gpios>;
+};
