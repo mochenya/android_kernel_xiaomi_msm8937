@@ -483,14 +483,6 @@ static int fpc1020_probe(struct platform_device *pdev)
 		goto exit;
 	}
 
-#ifdef CONFIG_MACH_XIAOMI_UTER
-	if(ulysse_fpsensor != 1) {
-				pr_err("Macle fpc1020_probe failed as ulysse_fpsensor=%d(1=fp)\n", ulysse_fpsensor);
-				return -1;
-		 }
-#endif
-
-
 	fpc1020->dev = dev;
 	platform_set_drvdata(pdev, fpc1020);
 
@@ -500,6 +492,9 @@ static int fpc1020_probe(struct platform_device *pdev)
 		goto exit;
 	}
 
+#ifdef CONFIG_MACH_XIAOMI_UTER
+	if(ulysse_fpsensor != 1) {
+#endif
 	rc = fpc1020_request_named_gpio(fpc1020, "fpc,gpio_irq",
 			&fpc1020->irq_gpio);
 	if (rc)
@@ -508,6 +503,9 @@ static int fpc1020_probe(struct platform_device *pdev)
 			&fpc1020->rst_gpio);
 	if (rc)
 		goto exit;
+#ifdef CONFIG_MACH_XIAOMI_UTER
+	}
+#endif
 
 	fpc1020->fingerprint_pinctrl = devm_pinctrl_get(dev);
 	if (IS_ERR(fpc1020->fingerprint_pinctrl)) {
@@ -541,6 +539,14 @@ static int fpc1020_probe(struct platform_device *pdev)
 	rc = select_pin_ctl(fpc1020, "fpc1020_irq_active");
 	if (rc)
 		goto exit;
+
+#ifdef CONFIG_MACH_XIAOMI_UTER
+	if(ulysse_fpsensor != 1) {
+		pr_err("Macle fpc1020_probe failed as ulysse_fpsensor=%d(1=fp)\n", ulysse_fpsensor);
+		rc = -ENODEV;
+		goto exit;
+	}
+#endif
 
 	atomic_set(&fpc1020->wakeup_enabled, 0);
 
@@ -587,6 +593,9 @@ static int fpc1020_probe(struct platform_device *pdev)
 				printk("gf3208 Create proc entry success!");
 			}
 
+	dev_info(dev, "%s: ok\n", __func__);
+
+exit:
 
 #ifdef CONFIG_MACH_XIAOMI_UTER
 	if(!dev->parent || !dev->parent->parent) {
@@ -612,9 +621,6 @@ static int fpc1020_probe(struct platform_device *pdev)
 	}
 #endif
 
-	dev_info(dev, "%s: ok\n", __func__);
-
-exit:
 	return rc;
 }
 
