@@ -107,7 +107,6 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 
 	}
 #endif
-#ifndef CONFIG_MACH_XIAOMI_UTER
 	rc = vreg_setup(gf_dev, "vcc_spi", true);
 	if (rc)
 		goto exit;
@@ -115,15 +114,10 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 	rc = vreg_setup(gf_dev, "vdd_io", true);
 	if (rc)
 		goto exit_1;
-#endif
 
 	rc = vreg_setup(gf_dev, "vdd_ana", true);
 	if (rc)
-#ifndef CONFIG_MACH_XIAOMI_UTER
 		goto exit_2;
-#else
-		return rc;
-#endif
 
 	msleep(11);
  	printk("gf3208 msleep 11ms\n");
@@ -163,7 +157,6 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 
 	return 0;
 
-#ifndef CONFIG_MACH_XIAOMI_UTER
 	(void)vreg_setup(gf_dev, "vdd_ana", false);
 exit_2:
 	(void)vreg_setup(gf_dev, "vdd_io", false);
@@ -171,7 +164,6 @@ exit_1:
 	(void)vreg_setup(gf_dev, "vcc_spi", false);
 exit:
 	return rc;
-#endif
 }
 
 void gf_cleanup(struct gf_dev	* gf_dev)
