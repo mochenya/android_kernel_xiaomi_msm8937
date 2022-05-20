@@ -24,3 +24,6 @@
 	chan@11 { label = "case_therm"; };
 	/delete-node/ chan@13;
 };
+
+/* Custom changes */
+&pm8953_l6 { regulator-always-on; };
