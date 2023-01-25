@@ -1,7 +1,7 @@
 #ifndef __KSU_H_SELINUX
 #define __KSU_H_SELINUX
 
-#include <linux/types.h>
+#include "linux/types.h"
 
 #ifndef CONFIG_KSU_BACKPORT
 #define HAVE_SELINUX_STATE
