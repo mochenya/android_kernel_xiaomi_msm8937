@@ -1,4 +1,4 @@
-CONFIG_LOCALVERSION="-Mi8937"
+CONFIG_LOCALVERSION="-Mi8937-kernelsu"
 # CONFIG_LOCALVERSION_AUTO is not set
 # CONFIG_FHANDLE is not set
 CONFIG_AUDIT=y
@@ -850,3 +850,10 @@ CONFIG_BPF_JIT=y
 # LZ4 Ramdisk
 CONFIG_DECOMPRESS_LZ4=y
 CONFIG_RD_LZ4=y
+
+# zhaoyuenan add: enable kernel su
+CONFIG_OVERLAY_FS=y
+CONFIG_KSU=y
+# CONFIG_KSU_DEBUG is not set
+CONFIG_KSU_BACKPORT=y
+# zhaoyuenan end: enable kernel su
