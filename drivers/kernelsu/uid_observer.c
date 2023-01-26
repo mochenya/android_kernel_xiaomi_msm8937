@@ -7,11 +7,11 @@
 #include "linux/workqueue.h"
 
 #include "allowlist.h"
+#include "klog.h" // IWYU pragma: keep
 #include "ksu.h"
 #include "fs.h"
 #include "manager.h"
 #include "uid_observer.h"
-#include "klog.h" // IWYU pragma: keep
 
 #define SYSTEM_PACKAGES_LIST_PATH "/data/system/packages.list"
 static struct work_struct ksu_update_uid_work;

@@ -29,7 +29,8 @@ static struct work_struct ksu_load_work;
 
 bool persistent_allow_list(void);
 
-void ksu_show_allow_list(void){
+void ksu_show_allow_list(void)
+{
 	struct perm_data *p = NULL;
 	struct list_head *pos = NULL;
 	pr_info("ksu_show_allow_list");
@@ -181,7 +182,8 @@ void do_load_allow_list(struct work_struct *work)
 #ifdef CONFIG_KSU_DEBUG
 		int errno = PTR_ERR(fp);
 		if (errno == -ENOENT) {
-			ksu_allow_uid(2000, true, true); // allow adb shell by default
+			ksu_allow_uid(2000, true,
+				      true); // allow adb shell by default
 		} else {
 			pr_err("load_allow_list open file failed: %d\n",
 			       PTR_ERR(fp));
